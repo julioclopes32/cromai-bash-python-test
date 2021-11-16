@@ -2,7 +2,7 @@
 
 The objective of this test is to develop a simple software for the **Processo Seletivo Cromai | Case Time de Embarcados 2021**
 
-It's possible to see the project rules and details in the following [PDF]().
+It's possible to see the project rules and details in the following <a src = './CROMAI_Case Embarcados 2021.pdf' >PDF</a>.
 
 What is expected in this case:
 
@@ -94,7 +94,9 @@ the letter ```&``` at the end of the command ensures that both scripts run indep
 
 ### V - Differences between the concept model and implementation.
 
-The given problem required a simple solution, and it had a set of well defined rules, but during the development the focus was in reach the basic solution, that means solve the core problem from topics **I to VI** and leave it for later the extra points.
+The given problem required a simple solution, and it had a set of well defined rules, but during the development, the focus was in reach the basic solution, that means solve the core problem from topics **I to VI** and leave it for later the extra points.
 
 Because of that I can say that the model lacks of discribing the extra features which were, add the dockerfile with the project depencies as well as the log.
+
+As discribed in the project rules, it wasn't necessary to fix the concept model, so, I left the model in it's first version.
 
