@@ -2,7 +2,7 @@
 
 The objective of this test is to develop a simple software for the **Processo Seletivo Cromai | Case Time de Embarcados 2021**
 
-It's possible to see the project rules and details in the following <a src = './CROMAI_Case Embarcados 2021.pdf' >PDF</a>.
+It's possible to see the project rules and details in the following [PDF](https://github.com/julioclopes32/cromai-bash-python-test/blob/main/CROMAI_Case%20Embarcados%202021.pdf).
 
 What is expected in this case:
 
