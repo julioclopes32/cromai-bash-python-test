@@ -11,7 +11,8 @@ What is expected in this case:
 - III - Write the code in python3.
 - IV - Do the integration between the 2 codes.
 - V - Discribe the differences between the concept model and what was implemented.
-- VI - commit the code in github and send link.
+- VI - (EXTRA) Create a cromai.log file to store software errors
+- VII - (EXTRA) Create a dockerfile with all dependencies
 
 ### I - Concept model
 
@@ -30,56 +31,10 @@ It's possible to see it, in the following image:
 ### II - Shell script code
 The shell script code as required was developed to run in linux OS, the OS used to develop this code it was Ubuntu.
 
-```
-#! /bin/bash
-
-#Finding pid path with variable $pwd.
-FILE="$(pwd)/pid"
-while true
-do
-    #Checking if pid file exists, if it exists, read.
-    if [ -f "$FILE" ]; then
-        read -r pid<$FILE
-        if ps -p $pid > /dev/null; 
-        then
-            # Do something knowing the pid exists, i.e. the process with $PID is running.
-            echo 1: It is alive
-            sleep 1
-            continue
-        fi
-    fi
-    #In case file doesn't exists or pid isn't running in system it executes python code.
-    echo 1: It is dead
-    python3 python_script.py &
-    sleep 1
-done
-```
 ### III - Python3 script code
 The python3 script code was developed using the python version 3.8.10
 
 It wasn't necessary to import external libraries, only the native python libraries time **(to manage time waiting)** as well as OS **(to manage the PID tasks)**.
-
-```
-import time
-import os
-
-#Waiting time in seconds during iteration loop
-x = 5
-#Getting it's own pid in os.
-pid = str(os.getpid())
-
-#Writting pid in file.
-f = open("pid", "w")
-f.write(pid)
-f.close()
-
-for i in range (0,3):
-    print ("2: I am alive")
-    time.sleep(x)
-else:
-    print ("2: I gonna die now, bye")
-
-```
 
 ### IV - Do the integration between the 2 codes.
 
@@ -100,3 +55,37 @@ Because of that I can say that the model lacks of discribing the extra features 
 
 As discribed in the project rules, it wasn't necessary to fix the concept model, so, I left the model in it's first version.
 
+### VI - (EXTRA) Create a cromai.log file to store software errors
+
+During software development is important to handle exceptions.
+
+In python this is simply implemented using the Try/Catch functions, but bash unfortunately doesn't have as many luxuries as one can find in many programming languages.
+
+There is no try/catch in bash, to handle errors we must use other techniques.
+
+In this case I used the following code at the beggining of the script:
+
+```
+#Defining log file.
+log=cromai.log
+
+# create log file or overrite if already present
+printf "Log File - " > $log
+
+err_report() {
+    date >> $log
+    echo "bash_script.sh: Error on line $1" >> $log
+}
+
+#With function trap we create a signal that runs the function err_report when the ERR event occurs.
+trap 'err_report $LINENO' ERR
+```
+with the function ```trap``` the bash script creates an event based signal, that runs an specific function, in this case the function  ```err_report()``` that writes in the log file the specific line of the error.
+
+### VII - (EXTRA) Create a dockerfile with all dependencies
+
+The docker technology uses the concept of containers to export not only necessary required libraries to other envirements as well export the OS used to run the application.
+
+To avoid using a bunch of unecessary libraries and OS python requirements, we used Venv, that allows us to use a particion of python with it's own necessary libraries creating a clean envirement to operate.
+
+In our case, how we only used the native python libraries **time** and **OS** because of that the ```requirements.txt``` became empty.
